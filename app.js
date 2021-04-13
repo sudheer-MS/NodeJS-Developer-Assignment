@@ -138,7 +138,7 @@ app.get("/user/tweets/feed/", authentication, async (request, response) => {
     WHERE 
     tweet.user_id in (SELECT following_user_id FROM follower WHERE follower_user_id = ${userId})
     ORDER BY tweet.date_time DESC
-    LIMIT 4;`;
+    LIMIT 4 OFFSET 0;`;
   const latestTweets = await db.all(getTweetsQuery);
   response.send(latestTweets.map((eachTweet) => convertTweets(eachTweet)));
 });
